@@ -1,0 +1,16 @@
+//- admin.pug
+include ../partials/header.pug
+
+body
+    div.container
+        div.jumbotron
+            h1 Admin
+        div
+            h3 Data Added
+            br
+            if decibel_value && location_id
+               a #{location_id}
+               | : &nbsp
+               span #{decibel_value}
+
+    include ../partials/footer.pug

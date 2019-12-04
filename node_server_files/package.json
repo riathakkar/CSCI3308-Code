@@ -1,0 +1,26 @@
+{
+  "name": "node_server_files",
+  "version": "1.0.0",
+  "description": "server for decibel",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riathakkar/CSCI3308-Code.git"
+  },
+  "author": "Ria Thakkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/riathakkar/CSCI3308-Code/issues"
+  },
+  "homepage": "https://github.com/riathakkar/CSCI3308-Code#readme",
+  "devDependencies": {
+    "pug": "^2.0.4"
+  },
+  "dependencies": {
+    "request": "^2.88.0",
+    "requests": "^0.3.0"
+  }
+}

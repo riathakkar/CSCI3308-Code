@@ -1,0 +1,18 @@
+//- home.pug
+include ../partials/header.pug
+
+body
+    div.container
+        div.jumbotron
+            h1 Traffic on Campus
+        div
+            h3 Locations
+            br
+            if data && decibel_readings
+                each location, index in data
+                    p
+                        a(href="location.html") #{location.location_id}
+                        | : &nbsp
+                        span(class=location.status) #{location.location_desc} #{decibel_readings[index]['MAX(data_value)']}
+
+    include ../partials/footer.pug
