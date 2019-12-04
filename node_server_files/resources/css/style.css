@@ -1,1 +1,14 @@
 /* style.css */
+.box{
+	width:100%;
+	height:100px;
+}
+.busy{
+  background:#f00;
+}
+.normal{
+  background:#00f;
+}
+.quiet{
+  background:#0f0;
+}

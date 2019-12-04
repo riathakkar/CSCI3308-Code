@@ -100,22 +100,70 @@ app.use(express.static(__dirname + '/'));
 
 // home page
 app.get('/home', function(req, res) {
-
 	var query = 'select * from locations'; // select all locations and their latest reading
   con.query(query, (err, rows) => {
+
       if(err) throw err;
        //has the latest_decibel values for each location.
       console.log(rows)
-      var latest_value = 'select locations.location_id, MAX(data_value) from data left join locations on data.location_id = locations.location_id group by locations.location_id;';
+      var latest_value = 'select temp_table.location_id, data_value, data_id from data full join (select locations.location_id, MAX(data_id) max_data from locations left join data on data.location_id = locations.location_id group by locations.location_id order by locations.location_id asc)temp_table on data_id=temp_table.max_data;';
+      var j = 1;
       con.query(latest_value, function (err, latest_decibel){
-        console.log(latest_decibel)
         if(err) throw err;
-        res.render('pages/home', {
-  				page_title: 'Home',
-  				data: rows,
-          decibel_readings: latest_decibel
-  			})
+        console.log(rows.length);
+        for(var i=1; i<=rows.length; i++){
+          var std =  'select stddev(data_value) from (select data_value from data where data.location_id='+i+') as alias_table;'
+          var avg = 'select AVG(data_value) from (select data_value from data where data.location_id='+i+') as alias_table;'
+
+          con.query(std, function(err, std_result){
+
+            if(err) throw err;
+
+            std_result = std_result[0]['stddev(data_value)'];
+            con.query(avg, function(err, avg_result){
+                avg_result = avg_result[0]['AVG(data_value)'];
+                console.log(j);
+                var db = latest_decibel[j-1]['data_value'];
+                console.log(db);
+
+                console.log(avg_result+std_result);
+                console.log(avg_result-std_result);
+                if(db >= avg_result+std_result){
+                  var status_update = 'update locations set status="busy" where location_id =' + j+';';
+                  con.query(status_update, (err, result) =>{
+                    if(err) throw err;
+
+                  });
+                } else if(db < avg_result+std_result && db > avg_result-std_result){
+                  var status_update = 'update locations set status="normal" where location_id =' + j+';';
+                  con.query(status_update, (err, result) =>{
+                    if(err) throw err;
+
+                  });
+                } else {
+                  var status_update = 'update locations set status="quiet" where location_id =' + j+';';
+                  con.query(status_update, (err, result) =>{
+                    if(err) throw err;
+
+                  });
+                }
+                j++;
+              });
+
+          });
+        }
+        con.query(query, (err, rows) =>{
+          res.render('pages/home', {
+    				page_title: 'Home',
+    				data: rows,
+            decibel_readings: latest_decibel,
+    			})
+        });
+
       });
+
+      //is it busy?
+
 
 
 		});

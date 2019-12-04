@@ -10,9 +10,10 @@ body
             br
             if data && decibel_readings
                 each location, index in data
+                    div(class=location.status+" box")
                     p
                         a(href="location.html") #{location.location_id}
                         | : &nbsp
-                        span(class=location.status) #{location.location_desc} #{decibel_readings[index]['MAX(data_value)']}
+                        span #{location.location_desc} #{decibel_readings[index]["data_value"]}
 
     include ../partials/footer.pug
