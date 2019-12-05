@@ -1,58 +1,4 @@
-// const http = require('http');
-// const hostname = '127.0.0.1';
-// const port = 3000;
-//
-//
-// var express = require('express');
-// var app = express();
-// var mysql = require('mysql');
-//
-// var con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "inamorata1"
-// });
-//
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-// });
-//
-// app.get('/update', function(req, res) {
-// 	var query = 'INSERT INTO locations (location_id, data_id) VALUES ('$location_id','$time');';
-// 	db.any(query)
-//         .then(function (rows) {
-//             res.render('pages/home',{
-// 				my_title: "Home Page",
-// 				data: rows,
-// 				color: '',
-// 				color_msg: ''
-// 			})
-//
-//         })
-//         .catch(function (err) {
-//             // display error message in case an error
-//             req.flash('error', err); //if this doesn't work for you replace with console.log
-//             res.render('pages/home', {
-//                 title: 'Home Page',
-//                 data: '',
-//                 color: '',
-//                 color_msg: ''
-//             })
-//         })
-// });
-//
-// app.listen(port, () => {
-//   console.log(`Server running at http://${hostname}:${port}/`);
-// });
-//things being sent in
-//decibel VALUES
-//time of reading
-//location of reading
 
-//processing
-
-//take v
 'use strict';
 
 const express = require('express'); // Add the express framework
@@ -170,10 +116,25 @@ app.get('/home', function(req, res) {
 });
 
 // location page
-app.get('/location', function(req, res) {
-	res.render('pages/location',{
-		page_title:"Location Name"
-	});
+app.get('/location/:id', function(req, res) {
+  var query = 'select location_desc from locations where location_id='+req.params.id+";";
+  con.query(query, (err, description) => {
+    if(err) throw err;
+    var get_data = 'select * from data where location_id='+req.params.id+";";
+    con.query(get_data, function (err, data){
+      console.log(data);
+      res.render('pages/location',{
+        page_title:"Location Name",
+        description: description[0],
+        data: data,
+        id:req.params.id
+      });
+    });
+  });
+
+
+
+
 });
 
 app.get('/admin/update/:db/:id', function(req, res) {

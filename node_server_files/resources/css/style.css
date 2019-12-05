@@ -12,3 +12,34 @@
 .quiet{
   background:#0f0;
 }
+
+.page {
+
+}
+
+.display_table {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+th {
+    padding: 10px;
+    text-align: left;
+}
+
+th.hours {
+    font-style: italic;
+    font-size: .6em;
+    border: 1px solid #AAAAAA;
+}
+
+th.days {
+    border: 1px solid #AAAAAA;
+}
+
+td {
+    border: 1px solid #EEEEEE;
+}

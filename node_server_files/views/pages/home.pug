@@ -12,8 +12,10 @@ body
                 each location, index in data
                     div(class=location.status+" box")
                     p
-                        a(href="location.html") #{location.location_id}
+                        a(href="location/"+location.location_id) #{location.location_id}
                         | : &nbsp
-                        span #{location.location_desc} #{decibel_readings[index]["data_value"]}
+                        span #{location.location_desc} #{decibel_readings[index]["data_value"]} #{location.data_time}
+
+                br
 
     include ../partials/footer.pug

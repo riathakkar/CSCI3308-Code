@@ -1,1 +1,317 @@
 //- location.pug
+include ../partials/header.pug
+
+body
+    div.container
+        div.jumbotron
+            h1 #{description.location_desc}
+
+        table#display_table
+            tr
+              th
+                th.hours 12am
+                th.hours 1am
+                th.hours 2am
+                th.hours 3am
+                th.hours 4am
+                th.hours 5am
+                th.hours 6am
+                th.hours 7am
+                th.hours 8am
+                th.hours 9am
+                th.hours 10am
+                th.hours 11am
+                th.hours 12pm
+                th.hours 1pm
+                th.hours 2pm
+                th.hours 3pm
+                th.hours 4pm
+                th.hours 5pm
+                th.hours 6pm
+                th.hours 7pm
+                th.hours 8pm
+                th.hours 9pm
+                th.hours 10pm
+                th.hours 11pm
+            tr#Sun
+                th.days Sunday
+                td#Sun12am
+                td#Sun1am
+                td#Sun2am
+                td#Sun3am
+                td#Sun4am
+                td#Sun5am
+                td#Sun6am
+                td#Sun7am
+                td#Sun8am
+                td#Sun9am
+                td#Sun10am
+                td#Sun11am
+                td#Sun12pm
+                td#Sun1pm
+                td#Sun2pm
+                td#Sun3pm
+                td#Sun4pm
+                td#Sun5pm
+                td#Sun6pm
+                td#Sun7pm
+                td#Sun8pm
+                td#Sun9pm
+                td#Sun10pm
+                td#Sun11pm
+            tr#Mon
+                th.days Monday
+                td#Mon12am
+                td#Mon1am
+                td#Mon2am
+                td#Mon3am
+                td#Mon4am
+                td#Mon5am
+                td#Mon6am
+                td#Mon7am
+                td#Mon8am
+                td#Mon9am
+                td#Mon10am
+                td#Mon11am
+                td#Mon12pm
+                td#Mon1pm
+                td#Mon2pm
+                td#Mon3pm
+                td#Mon4pm
+                td#Mon5pm
+                td#Mon6pm
+                td#Mon7pm
+                td#Mon8pm
+                td#Mon9pm
+                td#Mon10pm
+                td#Mon11pm
+            tr#Tue
+                th.days Tuesday
+                td#Tue12am
+                td#Tue1am
+                td#Tue2am
+                td#Tue3am
+                td#Tue4am
+                td#Tue5am
+                td#Tue6am
+                td#Tue7am
+                td#Tue8am
+                td#Tue9am
+                td#Tue10am
+                td#Tue11am
+                td#Tue12pm
+                td#Tue1pm
+                td#Tue2pm
+                td#Tue3pm
+                td#Tue4pm
+                td#Tue5pm
+                td#Tue6pm
+                td#Tue7pm
+                td#Tue8pm
+                td#Tue9pm
+                td#Tue10pm
+                td#Tue11pm
+            tr#Wed
+                th.days Wednesday
+                td#Wed12am
+                td#Wed1am
+                td#Wed2am
+                td#Wed3am
+                td#Wed4am
+                td#Wed5am
+                td#Wed6am
+                td#Wed7am
+                td#Wed8am
+                td#Wed9am
+                td#Wed10am
+                td#Wed11am
+                td#Wed12pm
+                td#Wed1pm
+                td#Wed2pm
+                td#Wed3pm
+                td#Wed4pm
+                td#Wed5pm
+                td#Wed6pm
+                td#Wed7pm
+                td#Wed8pm
+                td#Wed9pm
+                td#Wed10pm
+                td#Wed11pm
+            tr#Thu
+                th.days Thursday
+                td#Thu12am
+                td#Thu1am
+                td#Thu2am
+                td#Thu3am
+                td#Thu4am
+                td#Thu5am
+                td#Thu6am
+                td#Thu7am
+                td#Thu8am
+                td#Thu9am
+                td#Thu10am
+                td#Thu11am
+                td#Thu12pm
+                td#Thu1pm
+                td#Thu2pm
+                td#Thu3pm
+                td#Thu4pm
+                td#Thu5pm
+                td#Thu6pm
+                td#Thu7pm
+                td#Thu8pm
+                td#Thu9pm
+                td#Thu10pm
+                td#Thu11pm
+            tr#Fri
+                th.days Friday
+                td#Fri12am
+                td#Fri1am
+                td#Fri2am
+                td#Fri3am
+                td#Fri4am
+                td#Fri5am
+                td#Fri6am
+                td#Fri7am
+                td#Fri8am
+                td#Fri9am
+                td#Fri10am
+                td#Fri11am
+                td#Fri12pm
+                td#Fri1pm
+                td#Fri2pm
+                td#Fri3pm
+                td#Fri4pm
+                td#Fri5pm
+                td#Fri6pm
+                td#Fri7pm
+                td#Fri8pm
+                td#Fri9pm
+                td#Fri10pm
+                td#Fri11pm
+            tr#Sat
+                th.days Saturday
+                td#Sat12am
+                td#Sat1am
+                td#Sat2am
+                td#Sat3am
+                td#Sat4am
+                td#Sat5am
+                td#Sat6am
+                td#Sat7am
+                td#Sat8am
+                td#Sat9am
+                td#Sat10am
+                td#Sat11am
+                td#Sat12pm
+                td#Sat1pm
+                td#Sat2pm
+                td#Sat3pm
+                td#Sat4pm
+                td#Sat5pm
+                td#Sat6pm
+                td#Sat7pm
+                td#Sat8pm
+                td#Sat9pm
+                td#Sat10pm
+                td#Sat11pm
+                script(type='text/javascript').
+                              var display_location = {
+                                  id: '#{id}',
+                                  name: '#{description}'
+                              };
+                              var display_data = [];
+                              for (var index in !{JSON.stringify(data)}) {
+                                  var entry = {
+                                      volume: !{JSON.stringify(data)}[index].data_value,
+                                      time: !{JSON.stringify(data)}[index].data_time
+                                  };
+                                  display_data.push(entry);
+                              }
+
+                              console.log(display_location);
+                              console.log(display_data);
+
+                              if (display_location && display_data)
+                              {
+                                  const one_hour = 60 * 60 * 1000;
+                                  var current_date = new Date(Date.now());
+                                  console.log("Current Date: ", current_date.toUTCString());
+                                  var thisWeek = new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate() - current_date.getDay(), -7, 0, 0, 0);
+                                  console.log("Beginning of this week: ", thisWeek.toUTCString());
+                                  var one_week_past = new Date(thisWeek.getTime());
+                                  one_week_past.setDate(thisWeek.getDate() - 7);
+                                  var two_week_past = new Date(thisWeek.getTime());
+                                  two_week_past.setDate(thisWeek.getDate() - 14);
+                                  console.log("Beginning of 1 week past: ", one_week_past.toUTCString());
+                                  console.log("Beginning of 2 weeks past: ", two_week_past.toUTCString());
+
+                                  var table = document.getElementById('display_table');
+                                  var data_counter1 = 0, data_counter2 = 0;
+                                  var data_date = new Date();
+                                  var avg_volume = 0;
+
+                                  const min_volume = 100;
+                                  const max_volume = 300;
+                                  const white_volume = (min_volume + max_volume) / 2;
+                                  const interval = (max_volume - min_volume) / 32;
+                                  const hex_values = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
+
+                                  var color_value_index, color;
+
+                                  for (var i = 1, row; row = table.rows[i]; i++)
+                                  {
+                                      for (var j = 1, cell; cell = row.cells[j]; j++)
+                                      {
+                                          console.log('Cell: ', cell);
+
+                                          var one_week_past_volume;
+                                          var two_week_past_volume;
+
+                                          data_date = new Date(display_data[data_counter1].time);
+                                          while (data_date < one_week_past) {
+                                              data_counter1++;
+                                              data_date = new Date(display_data[data_counter1].time);
+                                          }
+                                          one_week_past.setTime(one_week_past.getTime() + one_hour);
+                                          one_week_past_volume = (data_date < one_week_past) ? display_data[data_counter1].volume : null;
+                                          console.log('1 Week Volume: ', one_week_past_volume);
+
+                                          data_date = new Date(display_data[data_counter2].time);
+                                          while (data_date < two_week_past) {
+                                              data_counter2++;
+                                              data_date = new Date(display_data[data_counter2].time);
+                                          }
+                                          two_week_past.setTime(two_week_past.getTime() + one_hour);
+                                          two_week_past_volume = (data_date < two_week_past) ? display_data[data_counter2].volume : null;
+                                          console.log('2 Week Volume: ', two_week_past_volume);
+
+                                          if (one_week_past_volume && two_week_past_volume) {
+                                              avg_volume = (one_week_past_volume + two_week_past_volume) / 2;
+                                          }
+                                          else if (one_week_past_volume) {
+                                              avg_volume = one_week_past_volume;
+                                          }
+                                          else if (two_week_past_volume) {
+                                              avg_volume = two_week_past_volume;
+                                          }
+                                          else {
+                                              avg_volume = white_volume;
+                                          }
+                                          console.log('Avg Volume: ', avg_volume);
+
+                                          color = '#FFFFFF';
+
+                                          if (avg_volume < white_volume){
+                                              color_value_index = parseInt((avg_volume - min_volume) / interval);
+                                              color = '#' + hex_values[color_value_index] + hex_values[color_value_index] + 'FF' + hex_values[color_value_index] + hex_values[color_value_index];
+                                          }
+                                          else if (avg_volume > white_volume){
+                                              color_value_index = parseInt((max_volume - avg_volume) / interval);
+                                              color = '#FF' + hex_values[color_value_index] + hex_values[color_value_index] + hex_values[color_value_index] + hex_values[color_value_index];
+                                          }
+                                          console.log('Color: ', color);
+                                          cell.style.backgroundColor = color;
+                                      }
+                                  }
+                              }
