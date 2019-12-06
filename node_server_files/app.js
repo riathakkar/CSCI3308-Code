@@ -21,12 +21,25 @@ let options = {
 //Create Database Connection
 //const pgp = require('pg-promise')();
 var mysql = require('mysql');
-const con = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'inamorata1',
-  database: 'locations'
-});
+// const con = mysql.createConnection({
+//   host: '127.0.0.1',
+//   user: 'root',
+//   password: 'inamorata1',
+//   database: 'locations'
+// });
+var con;
+if (process.env.JAWSDB_URL) {
+    // Database is JawsDB on Heroku
+    con = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+    // Database is local
+    con = mysql.createConnection({
+        host: '127.0.0.1',
+        user: 'root',
+        password: 'inamorata1',
+        database: 'locations'
+    })
+};
 
 con.connect((err) => {
   if(err){
