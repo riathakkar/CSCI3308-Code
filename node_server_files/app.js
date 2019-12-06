@@ -122,7 +122,6 @@ app.get('/location/:id', function(req, res) {
     if(err) throw err;
     var get_data = 'select * from data where location_id='+req.params.id+";";
     con.query(get_data, function (err, data){
-      console.log(data);
       res.render('pages/location',{
         page_title:"Location Name",
         description: description[0],
