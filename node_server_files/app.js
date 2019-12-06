@@ -133,7 +133,7 @@ app.get('/location/:id', function(req, res) {
   var query = 'select location_desc from locations where location_id='+req.params.id+";";
   con.query(query, (err, description) => {
     if(err) throw err;
-    var get_data = 'select * from data where location_id='+req.params.id+";";
+    var get_data = 'select * from data where location_id='+req.params.id+" and data_time > (NOW() - interval '3 weeks') order by data_time asc;";
     con.query(get_data, function (err, data){
       res.render('pages/location',{
         page_title:"Location Name",
